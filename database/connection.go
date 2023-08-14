@@ -9,6 +9,23 @@ import (
 	_ "github.com/lib/pq"
 )
 
+/*
+The apiDB struct main use is:
+- To be the access point for our api methods to contact the database
+- When we are defining an api method, we will define it on to this structure
+  - ex: func (apiDbCgf *apiDBConfig) someHandler(----){}
+*/
+type ApiDBConfig struct {
+	Connection *sql.DB
+}
+
+/*
+Create an ApiDBConfig struct variable that will be our parent connection to the database
+- initilize its Connection variable inside the Connect() function
+- We can then access this Global variable
+*/
+var ApiDbCfg = ApiDBConfig{}
+
 // Connect will create a connection to our database
 func Connect() {
 	//Load in the .env
@@ -31,4 +48,6 @@ func Connect() {
 		log.Fatalf("error encountered when attempting to ping database: %v", onPingErr)
 	}
 
+	//Once out database connection has been established and validated, we set our Global ApiDBConfig to the connection
+	ApiDbCfg.Connection = dbConnection
 }

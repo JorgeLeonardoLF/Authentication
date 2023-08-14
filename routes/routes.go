@@ -33,6 +33,7 @@ func Setup(parentRoute *chi.Mux) {
 	- request handler methods: controllers._____
 	*/
 	v1Router.Get("/healthz", controllers.CheckServerHealth)
+	v1Router.Post("/register", controllers.RegisterNewAccount)
 
 	//finally mount the vXRouter to the parent router
 	parentRoute.Mount("/v1", v1Router)

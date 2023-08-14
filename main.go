@@ -15,7 +15,7 @@ func main() {
 	//Load .env file
 	godotenv.Load(".env")
 
-	// call the database connection function
+	//Initialize connection to database
 	database.Connect()
 
 	/*initialize a router using the chi library
@@ -25,7 +25,9 @@ func main() {
 	/*Call routes.Setup routes
 	- To run configurations
 	- Mount the vXRouter on to it
-		- vXRouter will have the paths setup on to it*/
+		- vXRouter will have the paths setup on to it
+	- Pass in our parent database struct so that the routes have access to the database
+	*/
 	routes.Setup(router)
 
 	//Setup Server
